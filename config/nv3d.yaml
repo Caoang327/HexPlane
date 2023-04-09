@@ -1,0 +1,39 @@
+systems:
+  basedir: "/path/to/log"
+  vis_every: 50000
+
+model:
+  N_voxel_init: 262144
+  time_grid_init: 31
+  time_grid_final: 300
+  upsampling_type: aligned
+  upsample_list: [20000, 40000, 70000]
+  update_emptymask_list: [30000, 50000, 80000]
+
+  density_n_comp: [24, 12, 12]
+  app_n_comp: [48, 24, 24]
+  fea2denseAct: relu
+  app_view_pe: 0
+  app_fea_pe: 0
+
+
+data:
+  datadir: "/path/to/data"
+  dataset_name: neural3D_NDC
+  scene_bbox_min: [-2.5, -2.0, -1.0]
+  scene_bbox_max: [2.5, 2.0, 1.0]
+  N_vis: 5
+
+  datasampler_type: hierach
+  stage_1_iteration: 10000
+  stage_2_iteration: 50000
+  stage_3_iteration: 40000
+  key_f_num: 30
+  downsample: 1.0
+
+optim:
+  n_iters: 100000
+
+render_test: True
+render_path: True
+expname: nv3d

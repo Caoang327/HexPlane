@@ -1,0 +1,11 @@
+imageio==2.26.0
+kornia==0.6.10
+lpips==0.1.4
+numpy==1.24.2
+omegaconf==2.3.0
+opencv_python==4.7.0.72
+Pillow==9.5.0
+pytorch_msssim==0.2.1
+scipy==1.9.1
+setuptools==67.6.0
+tqdm==4.65.0

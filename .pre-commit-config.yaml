@@ -1,0 +1,44 @@
+default_language_version:
+  python: python3
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-ast
+      - id: check-merge-conflict
+      # - id: end-of-file-fixer
+      - id: check-added-large-files 
+        args: ['--maxkb=5120']
+
+
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args:
+          - "--profile=black"
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.3.1
+    hooks:
+      - id: pyupgrade
+        args:
+          - "--py37-plus"
+        exclude: "^setup.py$"
+
+  - repo: https://github.com/ambv/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-typing-imports==1.12.0]
+        args:
+          # arguments to configure flake8
+          # making isort line length compatible with black
+          - "--max-line-length=88"
+          - "--ignore=E203,E722,E501,W503,F401"

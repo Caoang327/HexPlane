@@ -1,0 +1,31 @@
+systems:
+  basedir: "./logs"
+
+model:
+  N_voxel_init: 262144
+
+  # We heuristically set initial time_grid and final time grid. 
+  # A common strategy to set these two parameters for DNeRF dataset is:
+  # We empirically set time_grid_final = int(0.24 * N_frames), and time_grid_final = int(0.5 * time_grid_final)
+  # We show N_frames for each video 
+  # "standup": 150; "jumpingjacks": 200; "hook"   : 100; "bouncingballs": 150
+  # "lego"   :  50; "hellwarrior" : 100; "mutant" : 150; "trex"         : 200
+  time_grid_init: 16   
+  time_grid_final: 24
+  upsampling_type: unaligned
+  upsample_list: [3000, 6000, 9000]
+  update_emptymask_list: [4000, 8000, 10000]
+
+
+data:
+  datadir: "./data/standup"
+  scene_bbox_min: [-1.5, -1.5, -1.5]
+  scene_bbox_max: [1.5, 1.5, 1.5]
+  downsample: 2.0
+
+optim:
+  n_iters: 25000
+
+render_test: True
+render_path: True
+expname: dnerf_slim_standup
