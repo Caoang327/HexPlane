@@ -70,7 +70,7 @@ We would like to acknowledge them for making great code openly available for us 
 
 If you find this code useful, please consider citing:
 ```
-    @article{Cao2022FWD,
+    @article{Cao2023HexPlane,
     author    = {Cao, Ang and Johnson, Justin},
     title     = {HexPlane: A Fast Representation for Dynamic Scenes},
     journal   = {CVPR},
