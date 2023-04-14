@@ -87,7 +87,7 @@ class General_MLP(torch.nn.Module):
         if self.use_t:
             indata += [frame_time]
             if self.t_pe > 0:
-                indata += [positional_encoding(frame_time, self.tpe)]
+                indata += [positional_encoding(frame_time, self.t_pe)]
         if self.use_fea:
             if self.fea_pe > 0:
                 indata += [positional_encoding(features, self.fea_pe)]
