@@ -293,7 +293,7 @@ class HexPlane_Base(torch.nn.Module):
         if self.normalize_type == "normal":
             return (xyz_sampled - self.aabb[0]) * self.invaabbSize - 1
 
-    def feature2density(self, density_features: torch.tensor) -> torch.tensor:
+    def feature2density(self, density_features: torch.Tensor) -> torch.Tensor:
         if self.fea2denseAct == "softplus":
             return F.softplus(density_features + self.density_shift)
         elif self.fea2denseAct == "relu":
@@ -303,11 +303,11 @@ class HexPlane_Base(torch.nn.Module):
 
     def sample_rays(
         self,
-        rays_o: torch.tensor,
-        rays_d: torch.tensor,
+        rays_o: torch.Tensor,
+        rays_d: torch.Tensor,
         is_train: bool = True,
         N_samples: int = -1,
-    ) -> Tuple[torch.tensor, torch.tensor, torch.tensor]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """
         Sample points along rays based on the given ray origin and direction.
 
@@ -337,14 +337,14 @@ class HexPlane_Base(torch.nn.Module):
     @torch.no_grad()
     def filtering_rays(
         self,
-        all_rays: torch.tensor,
-        all_rgbs: torch.tensor,
-        all_times: torch.tensor,
-        all_depths: Optional[torch.tensor] = None,
+        all_rays: torch.Tensor,
+        all_rgbs: torch.Tensor,
+        all_times: torch.Tensor,
+        all_depths: Optional[torch.Tensor] = None,
         N_samples: int = 256,
         chunk: int = 10240 * 5,
         bbox_only: bool = False,
-    ) -> Tuple[torch.tensor, torch.tensor, torch.tensor, Optional[torch.tensor]]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, Optional[torch.Tensor]]:
         """
         Filter out rays that are not within the bounding box.
 
@@ -418,13 +418,13 @@ class HexPlane_Base(torch.nn.Module):
 
     def forward(
         self,
-        rays_chunk: torch.tensor,
-        frame_time: torch.tensor,
+        rays_chunk: torch.Tensor,
+        frame_time: torch.Tensor,
         white_bg: bool = True,
         is_train: bool = False,
         ndc_ray: bool = False,
         N_samples: int = -1,
-    ) -> Tuple[torch.tensor, torch.tensor, torch.tensor, torch.tensor]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
         """
         Forward pass of the HexPlane.
 

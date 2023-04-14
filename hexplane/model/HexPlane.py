@@ -144,8 +144,8 @@ class HexPlane(HexPlane_Base):
         return grad_vars
 
     def compute_densityfeature(
-        self, xyz_sampled: torch.tensor, frame_time: torch.tensor
-    ) -> torch.tensor:
+        self, xyz_sampled: torch.Tensor, frame_time: torch.Tensor
+    ) -> torch.Tensor:
         """
         Compuate the density features of sampled points from density HexPlane.
 
@@ -233,8 +233,8 @@ class HexPlane(HexPlane_Base):
         return inter
 
     def compute_appfeature(
-        self, xyz_sampled: torch.tensor, frame_time: torch.tensor
-    ) -> torch.tensor:
+        self, xyz_sampled: torch.Tensor, frame_time: torch.Tensor
+    ) -> torch.ensor:
         """
         Compuate the app features of sampled points from appearance HexPlane.
 
