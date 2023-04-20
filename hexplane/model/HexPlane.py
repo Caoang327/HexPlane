@@ -234,7 +234,7 @@ class HexPlane(HexPlane_Base):
 
     def compute_appfeature(
         self, xyz_sampled: torch.Tensor, frame_time: torch.Tensor
-    ) -> torch.ensor:
+    ) -> torch.Tensor:
         """
         Compuate the app features of sampled points from appearance HexPlane.
 
