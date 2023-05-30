@@ -1,5 +1,5 @@
 systems:
-  basedir: "/path/to/log"
+  basedir: "/home/ancao/src/scratch/temp/HexPlane_test"
   vis_every: 50000
 
 model:
@@ -7,8 +7,8 @@ model:
   time_grid_init: 31
   time_grid_final: 300
   upsampling_type: aligned
-  upsample_list: [20000, 40000, 70000]
-  update_emptymask_list: [30000, 50000, 80000]
+  upsample_list: [70000, 140000, 210000]
+  update_emptymask_list: [50000, 100000, 150000, 220000]
 
   density_n_comp: [24, 12, 12]
   app_n_comp: [48, 24, 24]
@@ -16,18 +16,21 @@ model:
   app_view_pe: 0
   app_fea_pe: 0
 
+  TV_weight_density: 0.0005
+  TV_weight_app: 0.0005
+
 
 data:
-  datadir: "/path/to/data"
+  datadir: "/nfs/turbo/justincj-turbo/ancao/dataset/neural_3D/flame_salmon_trim_1/"
   dataset_name: neural3D_NDC
   scene_bbox_min: [-2.5, -2.0, -1.0]
   scene_bbox_max: [2.5, 2.0, 1.0]
   N_vis: 5
 
   datasampler_type: hierach
-  stage_1_iteration: 10000
-  stage_2_iteration: 50000
-  stage_3_iteration: 40000
+  stage_1_iteration: 300000
+  stage_2_iteration: 250000
+  stage_3_iteration: 100000
   key_f_num: 30
   downsample: 1.0
 
