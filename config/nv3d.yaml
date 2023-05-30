@@ -35,7 +35,7 @@ data:
   downsample: 1.0
 
 optim:
-  n_iters: 100000
+  n_iters: 650000
 
 render_test: True
 render_path: True
