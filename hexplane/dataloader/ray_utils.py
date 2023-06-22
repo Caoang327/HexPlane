@@ -42,7 +42,7 @@ def get_ray_directions(H, W, focal, center=None):
     # see https://github.com/bmild/nerf/issues/24
     cent = center if center is not None else [W / 2, H / 2]
     directions = torch.stack(
-        [(i - cent[0]) / focal[0], -(j - cent[1]) / focal[1], -torch.ones_like(i)], -1
+        [(i - cent[0]) / focal[0], (j - cent[1]) / focal[1], torch.ones_like(i)], -1
     )  # (H, W, 3)
 
     return directions

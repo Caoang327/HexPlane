@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms as T
 from tqdm import tqdm
 
-from .ray_utils import get_ray_directions, get_rays, read_pfm
+from .ray_utils import get_ray_directions_blender, get_rays, read_pfm
 
 blender2opencv = torch.Tensor([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 
