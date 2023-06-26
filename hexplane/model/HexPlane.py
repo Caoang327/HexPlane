@@ -150,11 +150,11 @@ class HexPlane(HexPlane_Base):
         Compuate the density features of sampled points from density HexPlane.
 
         Args:
-            xyz_sampled: (B, N, 3) sampled points' xyz coordinates.
-            frame_time: (B, N) sampled points' frame time.
+            xyz_sampled: (N, 3) sampled points' xyz coordinates.
+            frame_time: (N, 1) sampled points' frame time.
 
         Returns:
-            density: (B, N) density of sampled points.
+            density: (N) density of sampled points.
         """
         # Prepare coordinates for grid sampling.
         # plane_coord: (3, B, 1, 2), coordinates for spatial planes, where plane_coord[:, 0, 0, :] = [[x, y], [x,z], [y,z]].
@@ -239,11 +239,11 @@ class HexPlane(HexPlane_Base):
         Compuate the app features of sampled points from appearance HexPlane.
 
         Args:
-            xyz_sampled: (B, N, 3) sampled points' xyz coordinates.
-            frame_time: (B, N) sampled points' frame time.
+            xyz_sampled: (N, 3) sampled points' xyz coordinates.
+            frame_time: (N, 1) sampled points' frame time.
 
         Returns:
-            density: (B, N) density of sampled points.
+            app_feature: (N, self.app_dim) density of sampled points.
         """
         # Prepare coordinates for grid sampling.
         # plane_coord: (3, B, 1, 2), coordinates for spatial planes, where plane_coord[:, 0, 0, :] = [[x, y], [x,z], [y,z]].

@@ -165,7 +165,7 @@ class DNerfDataset(Dataset):
         )  # modify focal length to match size self.img_wh
 
         # ray directions for all pixels, same for all images (same H, W, focal)
-        self.directions = get_ray_directions(
+        self.directions = get_ray_directions_blender(
             h, w, [self.focal, self.focal]
         )  # (h, w, 3)
         self.directions = self.directions / torch.norm(
