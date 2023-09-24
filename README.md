@@ -59,6 +59,7 @@ Or
 python main.py config=dnerf_slim.yaml systems.ckpt="checkpoint/path" render_only=True
 ```
 
+# [iPhone Dataset Code](./docs/iphone)
 
 # Acknowledgement
 Toyota Research Institute provided funds to support this work but this article solely reflects the opinions and conclusions of its authors and not TRI or any other Toyota entity. We thank Shengyi Qian for the title suggestion, David Fouhey, Mohamed El Banani, Ziyang Chen, Linyi Jin and for helpful discussions and feedbacks.
