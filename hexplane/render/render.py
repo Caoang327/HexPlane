@@ -1,5 +1,5 @@
 import os
-
+import wandb
 import imageio
 import numpy as np
 import torch
@@ -144,9 +144,16 @@ def evaluation(
             imageio.imwrite(f"{savePath}/{prefix}{idx:03d}_gt.png", gt_rgb_map)
             rgb_map = np.concatenate((rgb_map, depth_map), axis=1)
             imageio.imwrite(f"{savePath}/rgbd/{prefix}{idx:03d}.png", rgb_map)
+
+            #log all images to wandb
+            wandb.log({ f"{prefix}{idx:03d}.png": wandb.Image(rgb_map) })
+            wandb.log({ f"{prefix}{idx:03d}_gt.png": wandb.Image(gt_rgb_map) })
+            wandb.log({ f"rgbd/{prefix}{idx:03d}.png": wandb.Image(rgb_map) })
+
             if depth is not None:
                 rgb_map = np.concatenate((gt_rgb_map, gt_depth), axis=1)
                 imageio.imwrite(f"{savePath}/rgbd/{prefix}{idx:03d}_gt.png", rgb_map)
+                wandb.log({ f"rgbd/{prefix}{idx:03d}_gt.png": wandb.Image(rgb_map) })
 
     imageio.mimwrite(
         f"{savePath}/{prefix}video.mp4",
@@ -155,6 +162,8 @@ def evaluation(
         format="FFMPEG",
         quality=10,
     )
+
+    wandb.log({ f"{prefix}video.mp4": wandb.Video(f"{savePath}/{prefix}video.mp4", fps=30, format="mp4") })
     imageio.mimwrite(
         f"{savePath}/{prefix}depthvideo.mp4",
         np.stack(depth_maps),
@@ -162,6 +171,9 @@ def evaluation(
         fps=30,
         quality=10,
     )
+
+    wandb.log({ f"{prefix}depthvideo.mp4": wandb.Video(f"{savePath}/{prefix}depthvideo.mp4", fps=30, format="mp4") })
+
     if depth is not None:
         imageio.mimwrite(
             f"{savePath}/{prefix}_gt_depthvideo.mp4",
@@ -170,6 +182,8 @@ def evaluation(
             fps=30,
             quality=10,
         )
+
+        wandb.log({ f"{prefix}_gt_depthvideo.mp4": wandb.Video(f"{savePath}/{prefix}_gt_depthvideo.mp4", fps=30, format="mp4") })
 
     if PSNRs:
         psnr = np.mean(np.asarray(PSNRs))
@@ -194,7 +208,7 @@ def evaluation(
                     "LPIPS_a": l_a,
                     "LPIPS_v": l_v
                 })
-                
+
                 for i in range(len(PSNRs)):
                     f.write(
                         f"Index {i}, PSNR: {PSNRs[i]}, SSIM: {ssims[i]}, MS-SSIM: {msssim}, LPIPS_a: {l_alex[i]}, LPIPS_v: {l_vgg[i]}\n"
@@ -268,14 +282,18 @@ def evaluation_path(
         depth_maps.append(depth_map)
         if savePath is not None:
             imageio.imwrite(f"{savePath}/{prefix}{idx:03d}.png", rgb_map)
+            wandb.log({ f"{prefix}{idx:03d}.png": wandb.Image(rgb_map) })
             rgb_map = np.concatenate((rgb_map, depth_map), axis=1)
             imageio.imwrite(f"{savePath}/rgbd/{prefix}{idx:03d}.png", rgb_map)
+            wandb.log({ f"rgbd/{prefix}{idx:03d}.png": wandb.Image(rgb_map) })
 
     imageio.mimwrite(
         f"{savePath}/{prefix}video.mp4", np.stack(rgb_maps), fps=30, quality=8
     )
+    wandb.log({ f"{prefix}video.mp4": wandb.Video(f"{savePath}/{prefix}video.mp4", fps=30, format="mp4") })
     imageio.mimwrite(
         f"{savePath}/{prefix}depthvideo.mp4", np.stack(depth_maps), fps=30, quality=8
     )
-
+    wandb.log({ f"{prefix}depthvideo.mp4": wandb.Video(f"{savePath}/{prefix}depthvideo.mp4", fps=30, format="mp4") })
+    
     return 0
