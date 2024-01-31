@@ -4,6 +4,7 @@ import sys
 import numpy as np
 import torch
 from tqdm.auto import tqdm
+import wandb
 
 from hexplane.render.render import OctreeRender_trilinear_fast as renderer
 from hexplane.render.render import evaluation
@@ -340,6 +341,9 @@ class Trainer:
                     global_step=iteration,
                 )
 
+                # log to wandb
+                wandb.log({"train/reg_tv_density": loss_tv.detach().item()})
+
             # TV loss on the appearance planes
             if self.cfg.model.TV_weight_app > 0:
                 TV_weight_app = lr_factor * self.cfg.model.TV_weight_app
@@ -348,6 +352,9 @@ class Trainer:
                 summary_writer.add_scalar(
                     "train/reg_tv_app", loss_tv.detach().item(), global_step=iteration
                 )
+
+                # log to wandb
+                wandb.log({"train/reg_tv_app": loss_tv.detach().item()})
 
             # L1 loss on the density planes
             if self.cfg.model.L1_weight_density > 0:
@@ -360,6 +367,9 @@ class Trainer:
                     global_step=iteration,
                 )
 
+                # log to wandb
+                wandb.log({"train/reg_l1_density": loss_l1.detach().item()})
+
             # L1 loss on the appearance planes
             if self.cfg.model.L1_weight_app > 0:
                 L1_weight_app = lr_factor * self.cfg.model.L1_weight_app
@@ -368,6 +378,9 @@ class Trainer:
                 summary_writer.add_scalar(
                     "train/reg_l1_app", loss_l1.detach().item(), global_step=iteration
                 )
+
+                # log to wandb
+                wandb.log({"train/reg_l1_app": loss_l1.detach().item()})
 
             # Loss on the rendered and gt depth maps.
             if self.cfg.model.depth_loss and self.cfg.model.depth_loss_weight > 0:
@@ -383,6 +396,9 @@ class Trainer:
                     global_step=iteration,
                 )
 
+                # log to wandb
+                wandb.log({"train/depth_loss": depth_loss.detach().item()})
+
             # Dist loss from Mip360 paper.
             if self.cfg.model.dist_loss and self.cfg.model.dist_loss_weight > 0:
                 svals = (weights - model.near_far[0]) / (
@@ -397,6 +413,9 @@ class Trainer:
                     "train/dist_loss", dist_loss.detach().item(), global_step=iteration
                 )
 
+                # log to wandb
+                wandb.log({"train/dist_loss": dist_loss.detach().item()})
+
             optimizer.zero_grad()
             total_loss.backward()
             optimizer.step()
@@ -405,6 +424,15 @@ class Trainer:
             PSNRs.append(-10.0 * np.log(loss) / np.log(10.0))
             summary_writer.add_scalar("train/PSNR", PSNRs[-1], global_step=iteration)
             summary_writer.add_scalar("train/mse", loss, global_step=iteration)
+
+            # log info to wandb
+            wandb.log(
+                {
+                    "train/PSNR": PSNRs[-1],
+                    "train/mse": loss,
+                    "train/total_loss": total_loss.detach().item(),
+                }
+            )
 
             # Print the current values of the losses.
             if iteration % self.cfg.systems.progress_refresh_rate == 0:
@@ -440,6 +468,8 @@ class Trainer:
                 summary_writer.add_scalar(
                     "test/psnr", np.mean(PSNRs_test), global_step=iteration
                 )
+
+                wandb.log({"test/psnr": np.mean(PSNRs_test)})
 
                 torch.cuda.synchronize()
 
