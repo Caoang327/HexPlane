@@ -5,6 +5,7 @@ import numpy as np
 import torch
 from pytorch_msssim import ms_ssim as MS_SSIM
 from tqdm.auto import tqdm
+import wandb
 
 from hexplane.render.util.metric import rgb_lpips, rgb_ssim
 from hexplane.render.util.util import visualize_depth_numpy
@@ -184,6 +185,16 @@ def evaluation(
                 print(
                     f"PSNR: {psnr}, SSIM: {ssim}, MS-SSIM: {msssim}, LPIPS_a: {l_a}, LPIPS_v: {l_v}\n"
                 )
+
+                # log to wandb
+                wandb.log({
+                    "PSNR": psnr,
+                    "SSIM": ssim,
+                    "MS-SSIM": msssim,
+                    "LPIPS_a": l_a,
+                    "LPIPS_v": l_v
+                })
+                
                 for i in range(len(PSNRs)):
                     f.write(
                         f"Index {i}, PSNR: {PSNRs[i]}, SSIM: {ssims[i]}, MS-SSIM: {msssim}, LPIPS_a: {l_alex[i]}, LPIPS_v: {l_vgg[i]}\n"
