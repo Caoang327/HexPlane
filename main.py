@@ -19,7 +19,7 @@ torch.set_default_dtype(torch.float32)
 wandb.login(key = "c72679524bbe631e2f579d7e21ea07a12062af28")
 
 wandb.init(
-    entity = "singla-sachish",
+    entity = "hex-plane",
     project = "MLRC",
     name = "TEST_RUN"
 )
