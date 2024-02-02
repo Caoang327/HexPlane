@@ -210,11 +210,11 @@ class HexPlane(HexPlane_Base):
 
         # Fusion One
         if self.fusion_one == "multiply":
-            inter = plane_feat * line_time_feat
+            inter = line_time_feat *plane_feat
         elif self.fusion_one == "sum":
-            inter = plane_feat + line_time_feat
+            inter = line_time_feat+plane_feat 
         elif self.fusion_one == "concat":
-            inter = torch.cat([plane_feat, line_time_feat], dim=0)
+            inter = torch.cat([ line_time_feat,plane_feat], dim=0)
         else:
             raise NotImplementedError("no such fusion type")
 
@@ -299,11 +299,11 @@ class HexPlane(HexPlane_Base):
 
         # Fusion One
         if self.fusion_one == "multiply":
-            inter = plane_feat * line_time_feat
+            inter =  line_time_feat*plane_feat
         elif self.fusion_one == "sum":
-            inter = plane_feat + line_time_feat
+            inter = line_time_feat+plane_feat
         elif self.fusion_one == "concat":
-            inter = torch.cat([plane_feat, line_time_feat], dim=0)
+            inter = torch.cat([line_time_feat,plane_feat], dim=0)
         else:
             raise NotImplementedError("no such fusion type")
 
