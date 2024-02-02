@@ -21,6 +21,7 @@ wandb.login(key = "c72679524bbe631e2f579d7e21ea07a12062af28")
 wandb.init(
     entity = "hex-plane",
     project = "MLRC",
+    name = str(sys.argv[2])
 )
 
 def render_test(cfg):
