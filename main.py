@@ -19,13 +19,15 @@ torch.set_default_dtype(torch.float32)
 
 wandb.login(key = "c72679524bbe631e2f579d7e21ea07a12062af28")
 
+run_name = "Unnamed"
+if len(sys.argv) > 2:
+        run_name = str(sys.argv[2])
+    
 wandb.init(
     entity = "hex-plane",
     project = "MLRC",
-    name = "Unnamed"
-    if len(sys.argv) == 3:
-        name = str(sys.argv[2])
-)
+    name = run_name
+    }
 
 def render_test(cfg):
     test_dataset = get_test_dataset(cfg, is_stack=True)
