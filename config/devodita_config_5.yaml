@@ -1,0 +1,32 @@
+systems:
+  basedir: "./logs"
+
+model:
+  model_name: "HexPlane"
+  N_voxel_init: 262144
+  time_grid_init: 16
+  time_grid_final: 24
+  upsampling_type: unaligned
+  upsample_list: [3000, 6000, 9000]
+  update_emptymask_list: [4000, 8000, 10000]
+  fusion_one: "multiply" #change to sum, concat, multiply
+  fusion_two: "multiply" #change to sum, concat, multiply
+  init_scale: 0.9
+  init_shift: 0.5
+  density_dim: 8
+  DensityMode: "general_MLP"
+
+
+data:
+  datadir: "./data/standup"
+  scene_bbox_min: [-1.5, -1.5, -1.5]
+  scene_bbox_max: [1.5, 1.5, 1.5]
+  downsample: 2.0
+
+optim:
+  n_iters: 25000
+  lr_decay_type: "exp"
+
+render_test: True
+render_path: True
+expname: dnerf_general_standup
