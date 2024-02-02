@@ -20,8 +20,8 @@ torch.set_default_dtype(torch.float32)
 wandb.login(key = "c72679524bbe631e2f579d7e21ea07a12062af28")
 
 run_name = "Unnamed"
-if len(sys.argv) > 2:
-        run_name = str(sys.argv[2])
+if len(sys.argv) > 1:
+        run_name = str(sys.argv[len(sys.argv) - 1])
     
 wandb.init(
     entity = "hex-plane",
