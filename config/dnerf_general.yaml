@@ -18,7 +18,7 @@ model:
 
 
 data:
-  datadir: "/path/to/data"
+  datadir: "./data/standup"
   scene_bbox_min: [-1.5, -1.5, -1.5]
   scene_bbox_max: [1.5, 1.5, 1.5]
   downsample: 2.0
