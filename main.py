@@ -27,7 +27,7 @@ wandb.init(
     entity = "hex-plane",
     project = "MLRC",
     name = run_name
-    }
+)
 
 def render_test(cfg):
     test_dataset = get_test_dataset(cfg, is_stack=True)
