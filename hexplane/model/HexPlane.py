@@ -368,7 +368,7 @@ class HexPlane(HexPlane_Base):
                 F.interpolate(
                     plane_coef[i].data,
                     size=(res_target[mat_id_1], res_target[mat_id_0]),
-                    mode="bicubic",
+                    mode="bilinear",
                     align_corners=self.align_corners,
                 )
             )
@@ -376,7 +376,7 @@ class HexPlane(HexPlane_Base):
                 F.interpolate(
                     line_time_coef[i].data,
                     size=(res_target[vec_id], time_grid),
-                    mode="bicubic",
+                    mode="bilinear",
                     align_corners=self.align_corners,
                 )
             )
