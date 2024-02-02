@@ -386,10 +386,10 @@ class HexPlane(HexPlane_Base):
     @torch.no_grad()
     def upsample_volume_grid(self, res_target, time_grid):
         self.app_plane, self.app_line_time = self.up_sampling_planes(
-            self.app_plane, None, res_target, time_grid
+            self.app_plane,self.app_line_time, res_target, time_grid
         )
         self.density_plane, self.density_line_time = self.up_sampling_planes(
-            self.density_plane, None, res_target, time_grid
+            self.density_plane,self.density_line_time, res_target, time_grid
         )
 
         self.update_stepSize(res_target)
