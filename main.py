@@ -210,4 +210,7 @@ if __name__ == "__main__":
         render_test(cfg)
     else:
         # Reconstruction and Inference.
-        reconstruction(cfg)
+        reconstruction(cfg) 
+            
+    wandb.finish()
+            
