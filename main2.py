@@ -184,7 +184,7 @@ def reconstruction(cfg):
 
 if __name__ == "__main__":
     # Load config file from base config, yaml and cli.
-    base_cfg = OmegaConf.structured(Config())
+    base_cfg = OmegaConf.structured(config())
     cli_cfg = OmegaConf.from_cli()
     base_yaml_path = base_cfg.get("config", None)
     yaml_path = cli_cfg.get("config", None)
