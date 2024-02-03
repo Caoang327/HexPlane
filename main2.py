@@ -8,7 +8,7 @@ import datetime
 from torch.utils.tensorboard import SummaryWriter
 import sys
 
-from config.config import Config
+from config.llff_explicit import config
 from hexplane.dataloader import get_test_dataset, get_train_dataset
 from hexplane.model import init_model
 from hexplane.render.render import evaluation, evaluation_path
