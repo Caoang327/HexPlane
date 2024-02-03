@@ -19,15 +19,6 @@ torch.set_default_dtype(torch.float32)
 
 wandb.login(key = "c72679524bbe631e2f579d7e21ea07a12062af28")
 
-run_name = "Unnamed"
-if len(sys.argv) > 1:
-        run_name = str(sys.argv[1])
-    
-wandb.init(
-    entity = "hex-plane",
-    project = "MLRC",
-    name = run_name
-)
 
 def render_test(cfg):
     test_dataset = get_test_dataset(cfg, is_stack=True)
@@ -183,6 +174,7 @@ def reconstruction(cfg):
 
 
 if __name__ == "__main__":
+
     # Load config file from base config, yaml and cli.
     base_cfg = OmegaConf.structured(Config())
     cli_cfg = OmegaConf.from_cli()
@@ -195,6 +187,9 @@ if __name__ == "__main__":
     else:
         yaml_cfg = OmegaConf.create()
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
+
+            
+    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{cfg.expname}")
 
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
