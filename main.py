@@ -193,6 +193,9 @@ if __name__ == "__main__":
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
 
+    print(cfg)
+    print("\n")
+
     run_name = cfg.wandb_run
     wandb.init(entity = "hex-plane", project = "MLRC", name = run_name)
     # Fix Random Seed for Reproducibility.
