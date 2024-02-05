@@ -184,30 +184,25 @@ if __name__ == "__main__":
     yaml_path = cli_cfg.get("config", None)
     if yaml_path is not None:
         yaml_cfg = OmegaConf.load(yaml_path)
-        print(yaml_cfg)
     elif base_yaml_path is not None:
         yaml_cfg = OmegaConf.load(base_yaml_path)
-        print(1)
     else:
         yaml_cfg = OmegaConf.create()
-        print(2)
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
-    print(cfg)
-    print("\n")
+    
     
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
 
     
-    
-
-    run_name = cfg.wandb_run
-    wandb.init(entity = "hex-plane", project = "MLRC", name = run_name)
     # Fix Random Seed for Reproducibility.
     random.seed(cfg.systems.seed)
     np.random.seed(cfg.systems.seed)
     torch.manual_seed(cfg.systems.seed)
     torch.cuda.manual_seed(cfg.systems.seed)
+
+    run_name = cfg.expname
+    wandb.init(entity = "hex-plane", project = "MLRC", name = run_name)
 
     if cfg.render_only and (cfg.render_test or cfg.render_path):
         # Inference only.
