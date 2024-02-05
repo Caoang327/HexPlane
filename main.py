@@ -190,8 +190,8 @@ if __name__ == "__main__":
         yaml_cfg = OmegaConf.create()
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
 
-            
-    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{cli_cfg.get("wandb_name", None)}")
+    run_name = cli_cfg.get("wandb_name", None)
+    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{run_name}")
 
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
