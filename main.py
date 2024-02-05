@@ -123,6 +123,7 @@ def reconstruction(cfg):
     trainer.train()
 
     torch.save(HexPlane, f"{logfolder}/{cfg.expname}.th")
+    wandb.log_model(path=f"{logfolder}/{cfg.expname}.th", name=f"{cfg.expname}")
     # Render training viewpoints.
     if cfg.render_train:
         os.makedirs(f"{logfolder}/imgs_train_all", exist_ok=True)
