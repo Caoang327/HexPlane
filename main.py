@@ -180,6 +180,7 @@ if __name__ == "__main__":
     # Load config file from base config, yaml and cli.
     base_cfg = OmegaConf.structured(Config())
     cli_cfg = OmegaConf.from_cli()
+    print(cli_cfg)
     base_yaml_path = base_cfg.get("config", None)
     yaml_path = cli_cfg.get("config", None)
     if yaml_path is not None:
@@ -190,8 +191,9 @@ if __name__ == "__main__":
         yaml_cfg = OmegaConf.create()
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
 
-    run_name = cli_cfg.get("wandb_name", None)
-    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{run_name}")
+    print(cfg)
+    run_name = ("wandb_name", None)
+    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{cfg.wandb_run}")
 
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
