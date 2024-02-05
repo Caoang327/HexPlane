@@ -123,7 +123,8 @@ def reconstruction(cfg):
     trainer.train()
 
     torch.save(HexPlane, f"{logfolder}/{cfg.expname}.th")
-    wandb.log_model(path=f"{logfolder}/{cfg.expname}.th", name=f"{cfg.expname}")
+    wandb.save(f"{logfolder}/{cfg.expname}.th")
+    #wandb.log_model(path=f"{logfolder}/{cfg.expname}.th", name=f"{cfg.expname}")
     # Render training viewpoints.
     if cfg.render_train:
         os.makedirs(f"{logfolder}/imgs_train_all", exist_ok=True)
@@ -190,7 +191,7 @@ if __name__ == "__main__":
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
 
             
-    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{cfg.expname}")
+    wandb.init(entity = "hex-plane", project = "MLRC", name = f"{cli_cfg.get("wandb_name", None)}")
 
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
