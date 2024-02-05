@@ -40,3 +40,4 @@ optim:
 render_test: True
 render_path: True
 expname: nv3d
+wandb_name: Unnamed
