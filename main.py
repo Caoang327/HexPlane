@@ -184,6 +184,7 @@ if __name__ == "__main__":
     yaml_path = cli_cfg.get("config", None)
     if yaml_path is not None:
         yaml_cfg = OmegaConf.load(yaml_path)
+        print(yaml_path)
     elif base_yaml_path is not None:
         yaml_cfg = OmegaConf.load(base_yaml_path)
     else:
