@@ -29,4 +29,4 @@ optim:
 render_test: True
 render_path: True
 expname: dnerf_slim_standup
-wandb_name: Unnamed
+wandb_name: "Unnamed"
