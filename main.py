@@ -189,7 +189,10 @@ if __name__ == "__main__":
     else:
         yaml_cfg = OmegaConf.create()
     cfg = OmegaConf.merge(base_cfg, yaml_cfg, cli_cfg)  # merge configs
-    
+
+    run_name = cfg.expname
+    wandb.init(entity = "hex-plane", project = "MLRC", name = run_name)
+
     
     cfg2 = OmegaConf.to_container(cfg, resolve=True)
     wandb.config.update(cfg2)
@@ -200,9 +203,6 @@ if __name__ == "__main__":
     np.random.seed(cfg.systems.seed)
     torch.manual_seed(cfg.systems.seed)
     torch.cuda.manual_seed(cfg.systems.seed)
-
-    run_name = cfg.expname
-    wandb.init(entity = "hex-plane", project = "MLRC", name = run_name)
 
     if cfg.render_only and (cfg.render_test or cfg.render_path):
         # Inference only.
