@@ -92,7 +92,7 @@ class Model_Config:
 @dataclass
 class Data_Config:
     datadir: str = "./data"
-    dataset_name: str = "dnerf"  # choose from "dnerf", "neural3D_NDC"
+    dataset_name: str = "photo"  # choose from "dnerf", "neural3D_NDC"
     downsample: float = 1.0
     cal_fine_bbox: bool = False
     N_vis: int = -1
@@ -118,6 +118,14 @@ class Data_Config:
     stage_3_alpha: float = 0.1
 
     datasampler_type: str = "rays"  # choose from "rays", "images", "hierach"
+    # for phototourism
+    split: str,
+    batch_size : Optional[int]=None,
+    contraction: bool = False,
+    ndc: bool = False,
+    scene_bbox: Optional[List] = None,
+    global_translation: List[float] = None,
+    global_scale: List[float] = None,
 
 
 @dataclass
