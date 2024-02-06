@@ -140,10 +140,11 @@ def process_videos(videos, skip_index, img_wh, downsample, transform, num_worker
     To save memory, we pre-allocate a tensor to store all the images and spawn multi-threads to load the images into this tensor.
     """
     all_imgs = torch.zeros(len(videos) - 1, 300, img_wh[-1] * img_wh[-2], 3)
+    
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_workers) as executor:
-        # start a thread for each video
         current_index = 0
         futures = []
+
         for index, video_path in enumerate(videos):
             # skip the video with skip_index (eval video)
             if index == skip_index:
@@ -159,6 +160,15 @@ def process_videos(videos, skip_index, img_wh, downsample, transform, num_worker
                 )
                 futures.append(future)
                 current_index += 1
+
+                # Limit concurrency by waiting for completed futures
+                if len(futures) == num_workers:
+                    concurrent.futures.wait(futures)
+                    futures = []
+
+        # Wait for any remaining futures
+        concurrent.futures.wait(futures)
+
     return all_imgs
 
 
