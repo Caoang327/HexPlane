@@ -1,5 +1,5 @@
 systems:
-  basedir: "/home/ancao/src/scratch/temp/HexPlane_test"
+  basedir: "./HexPlane"
   vis_every: 50000
 
 model:
@@ -21,7 +21,7 @@ model:
 
 
 data:
-  datadir: "/nfs/turbo/justincj-turbo/ancao/dataset/neural_3D/flame_salmon_trim_1/"
+  datadir: "./cook_spinach/"
   dataset_name: neural3D_NDC
   scene_bbox_min: [-2.5, -2.0, -1.0]
   scene_bbox_max: [2.5, 2.0, 1.0]
